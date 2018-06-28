@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Flixster/View Controllers/MoviesViewController.m"
-            timestampString = "551852256.707268"
+            timestampString = "551901851.068915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-fetchMovies"
             landmarkType = "7">
          </BreakpointContent>

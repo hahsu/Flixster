@@ -9,12 +9,16 @@
 #import "MoviesViewController.h"
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DetailsViewController.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray * movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+
 @end
 
 @implementation MoviesViewController
@@ -22,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.activityIndicator startAnimating];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self fetchMovies];
@@ -56,7 +62,7 @@
             [self.refreshControl endRefreshing];
             
             // TODO: Store the movies in a property to use elsewhere
-            
+            [self.activityIndicator stopAnimating];
             [self.tableView reloadData];
             // TODO: Reload your table view data
         }
@@ -76,7 +82,7 @@
 
 // creating each cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
     
     // as you scroll they will call this function, it will paste it into the right aread
     // access the movie of interest
@@ -102,14 +108,20 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    UITableViewCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    NSDictionary *movie = self.movies[indexPath.row];
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    detailsViewController.movie = movie;
 }
-*/
+
 
 @end
