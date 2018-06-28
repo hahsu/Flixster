@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -46,6 +47,9 @@
     
     [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
+    
+    CGFloat maxHeight = self.synopsisLabel.frame.origin.y + self.synopsisLabel.frame.size.height + 40.0;
+    self.scrollView.contentSize = CGSizeMake(self.synopsisLabel.frame.size.width, maxHeight);
 }
 
 - (void)didReceiveMemoryWarning {
