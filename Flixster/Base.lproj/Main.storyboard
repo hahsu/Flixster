@@ -176,12 +176,12 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwj-RR-piV">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s47-5D-Nod">
                                         <rect key="frame" x="113" y="221" width="88" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Movie Trailer"/>
                                         <connections>
-                                            <segue destination="ewM-fd-ffW" kind="presentation" id="edW-A1-kRn"/>
+                                            <segue destination="ewM-fd-ffW" kind="show" id="fPI-Z3-k9h"/>
                                         </connections>
                                     </button>
                                 </subviews>
