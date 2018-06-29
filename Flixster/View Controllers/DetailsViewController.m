@@ -9,6 +9,7 @@
 #import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "TrailerViewController.h"
+#import "ReviewsViewController.h"
 
 @interface DetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *backdropView;
@@ -67,6 +68,9 @@
     // Pass the selected object to the new view controller.
     TrailerViewController *trailerViewController = [segue destinationViewController];
     trailerViewController.movie = self.movie;
+    
+    ReviewsViewController *reviewViewController = [segue destinationViewController];
+    reviewViewController.movie = self.movie;
 }
 
 

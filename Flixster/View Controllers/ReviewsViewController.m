@@ -1,26 +1,25 @@
 //
-//  TrailerViewController.m
+//  ReviewsViewController.m
 //  Flixster
 //
-//  Created by Hannah Hsu on 6/28/18.
+//  Created by Hannah Hsu on 6/29/18.
 //  Copyright © 2018 Hannah Hsu. All rights reserved.
 //
 
-#import "TrailerViewController.h"
+#import "ReviewsViewController.h"
 
-@interface TrailerViewController ()
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@interface ReviewsViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @end
 
-@implementation TrailerViewController
+@implementation ReviewsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSNumber *trailerId = self.movie[@"id"];
-    //NSLog(@"%d", id);
-    //int id = 5620579;
-    NSString *fullURL = [NSString stringWithFormat:@"%@%@%@", @"https://api.themoviedb.org/3/movie/", trailerId, @"/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
+    
+    NSNumber *reviewId = self.movie[@"id"];
+    NSString *fullURL = [NSString stringWithFormat:@"%@%@%@", @"https://api.themoviedb.org/3/movie/", reviewId, @"/reviews?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -34,24 +33,21 @@
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
             // TODO: Get the array of movies
-            NSArray *trailers = dataDictionary[@"results"];
-            NSDictionary *movieTrailer = trailers[0];
-            
-            NSString *baseURLString = @"https://www.youtube.com/watch?v=";
-            NSString *keyURLString = movieTrailer[@"key"];
-            //NSString *keyURLString = @"SUXWAEX2jlg";
-            
-            // concantenate the two urls
-            NSString *fullKeyURLString = [baseURLString stringByAppendingString:keyURLString];
-            NSLog(@"%@", fullKeyURLString);
-            
-            // make the string into a URL object
-            NSURL *trailerURL = [NSURL URLWithString:fullKeyURLString];
-            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:trailerURL];
-            [self.webView loadRequest:urlRequest];
+            NSArray *reviews = dataDictionary[@"results"];
+            if(reviews.count == 0){
+                self.reviewLabel.text = @"No reviews available";
+            }
+            else{
+                NSDictionary *movieReview = reviews[0];
+                self.reviewLabel.text = movieReview[@"content"];
+                [self.reviewLabel sizeToFit];
+                CGFloat maxHeight = self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height + 40.0;
+                self.scrollView.contentSize = CGSizeMake(self.reviewLabel.frame.size.width, maxHeight);
+            }
         }
     }];
     [task resume];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
