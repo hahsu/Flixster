@@ -66,7 +66,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     TrailerViewController *trailerViewController = [segue destinationViewController];
-    NSLog(@"%d", self.movie[@"id"]);
     trailerViewController.movie = self.movie;
 }
 
